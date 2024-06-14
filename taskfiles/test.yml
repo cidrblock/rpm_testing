@@ -271,6 +271,6 @@ tasks:
             devel
             milestone
         EOF
-      - tox --ansible -c tox-ansible.ini
+      - tox --parallel auto --quiet --ansible -c tox-ansible.ini
     deps:
       - collection:update
