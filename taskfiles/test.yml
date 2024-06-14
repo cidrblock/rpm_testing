@@ -4,7 +4,7 @@ version: "3"
 vars:
   TASK_TEMP_DIR: ../.cache/.rpm_testing
   REGISTRY: brew.registry.redhat.io
-  DOWNSTREAM_IMAGE: "{{.REGISTRY}}/rh-osbs/ansible-automation-platform-25-ansible-dev-tools-rhel8:24.5.0-1"
+  DOWNSTREAM_IMAGE: "{{.REGISTRY}}/rh-osbs/ansible-automation-platform-25-ansible-dev-tools-rhel8:24.5.0-5"
 
 tasks:
   default:
@@ -23,6 +23,7 @@ tasks:
       - task: playbook:test-cli
       - task: playbook:test-interactive
       - task: collection:test
+      - echo "All tests passed"
 
   login:
     description: Log into the registry
@@ -59,7 +60,7 @@ tasks:
           - tox
           - pytest-3.11
         cmd: "{{ .ITEM }} --version"
-  
+
   check-versions:
     dir: "{{.TASK_TEMP_DIR}}"
     description: Check versions of installed tools against the expected versions
@@ -85,7 +86,7 @@ tasks:
       - adt --version | tr -s [:space:] > installed_versions.txt
       - echo "" >> installed_versions.txt
       - diff --color expected_versions.txt installed_versions.txt
-  
+
   test-server:
     description: Test the ADT server
     summary: |

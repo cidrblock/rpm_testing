@@ -8,7 +8,7 @@ output:
 vars:
   TASK_TEMP_DIR: ../.cache/.rpm_testing
   ENGINE: podman
-  DOWNSTREAM_IMAGE: brew.registry.redhat.io/rh-osbs/ansible-automation-platform-25-ansible-dev-tools-rhel8:24.5.0-1
+  DOWNSTREAM_IMAGE: brew.registry.redhat.io/rh-osbs/ansible-automation-platform-25-ansible-dev-tools-rhel8:24.5.0-5
   LOCAL_IMAGE: localhost/ansible-dev-tools:latest
   REGISTRY: brew.registry.redhat.io
 
@@ -60,7 +60,7 @@ tasks:
         FROM {{.DOWNSTREAM_IMAGE}}
         USER root
         RUN <<EOR
-        microdnf install -y tar python3.12 vi nano wget yum
+        microdnf install -y python3.12 wget yum
         wget --no-check-certificate https://galaxy4.net/repo/RHEL/8/x86_64/tmux-3.4-1.el8.x86_64.rpm
         yum install -y tmux-3.4-1.el8.x86_64.rpm
         rm tmux-3.4-1.el8.x86_64.rpm
